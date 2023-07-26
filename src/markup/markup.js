@@ -1,5 +1,5 @@
 function generatePhotoCardMarkup({
-  webformatURL: webFormatURL,
+  webformatURL,
   largeImageURL,
   tags,
   likes,
@@ -9,7 +9,7 @@ function generatePhotoCardMarkup({
 }) {
   return `<div class="photo-card">
             <a href="${largeImageURL}">
-              <img src="${webFormatURL}" alt="${tags}" loading="lazy" class="gallery-item"/> 
+              <img src="${webformatURL}" alt="${tags}" loading="lazy" class="gallery-item"/> 
               <div class="info">
                 <div class="info-item-wrapper">
                   <b>Likes</b>

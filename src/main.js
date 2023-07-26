@@ -7,14 +7,16 @@ import { getList } from './api/api';
 import { markupElements } from './markup/markup';
 import { createMarkup, addMarkup } from './helpers/Markup';
 
-searchFormEl.addEventListener('submit', handlerSubmitSearch);
+const lightbox = new SimpleLightbox('.gallery .photo-card a', {
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+});
 
 let searchInput = null;
 let page = 1;
 
-const lightbox = new SimpleLightbox('.gallery .photo-card a', {
-  captionDelay: 250,
-});
+searchFormEl.addEventListener('submit', handlerSubmitSearch);
 
 async function handlerSubmitSearch(e) {
   e.preventDefault();
