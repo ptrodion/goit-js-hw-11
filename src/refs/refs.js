@@ -1,3 +1,5 @@
-export const searchFormEl = document.querySelector('.search-form');
-export const galleryEl = document.querySelector('.gallery');
-export const mask = document.querySelector('.mask');
+const searchFormEl = document.querySelector('.search-form');
+const galleryEl = document.querySelector('.gallery');
+const mask = document.querySelector('.mask');
+
+export { searchFormEl, galleryEl, mask };

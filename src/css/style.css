@@ -71,11 +71,12 @@ button {
   transition: 0.3s linear;
 }
 
-/* .search-input:focus {
+.search-input:focus {
   width: 300px;
   border-color: #345558;
   box-shadow: 0 0 5px #25191fcc;
-} */
+}
+
 .search-button {
   width: 42px;
   height: 42px;
@@ -125,4 +126,16 @@ button {
 
 .info-item-wrapper > p {
   margin-bottom: 0;
+}
+
+@media (max-width: 1157px) {
+  .photo-card {
+    flex-basis: calc(33.3333% - -117px);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .photo-card {
+    flex-basis: calc((100% - 24px));
+  }
 }

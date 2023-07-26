@@ -47,8 +47,13 @@ function checkPosition() {
   const height = document.body.offsetHeight;
   const screenHeight = window.innerHeight;
   const scrolled = window.scrollY;
-  const threshold = height - screenHeight / 4;
+  const threshold = height - screenHeight / 6;
   const position = scrolled + screenHeight;
+
+  if (page >= 13) {
+    Notiflix.Notify.failure('You have viewed all photos');
+    return;
+  }
 
   if (position >= threshold) {
     addGallery((page += 1));

@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '38394341-6bad80d83243545401e924dfe';
 
-async function getList(searchInput, page) {
+export async function getList(searchInput, page) {
   const params = new URLSearchParams({
     key: API_KEY,
     q: searchInput,
@@ -22,5 +22,3 @@ async function getList(searchInput, page) {
   }
   return response.data;
 }
-
-export { getList };

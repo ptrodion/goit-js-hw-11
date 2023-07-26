@@ -32,8 +32,6 @@ function generatePhotoCardMarkup({
           </div>`;
 }
 
-function markupElements(list) {
+export function markupElements(list) {
   return list.map(generatePhotoCardMarkup).join('');
 }
-
-export { markupElements };
