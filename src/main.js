@@ -43,36 +43,39 @@ async function handlerSubmitSearch(e) {
   }
 }
 
-window.addEventListener('scroll', () => {
-  const documentReact = document.documentElement.getBoundingClientRect();
+function checkPosition() {
+  const height = document.body.offsetHeight;
+  const screenHeight = window.innerHeight;
+  const scrolled = window.scrollY;
+  const threshold = height - screenHeight / 4;
+  const position = scrolled + screenHeight;
 
-  if (page >= 50) {
-    Notiflix.Notify.failure('Нou have viewed all photos');
-    return;
+  if (position >= threshold) {
+    addGallery((page += 1));
   }
+}
 
-  if (documentReact.bottom < document.documentElement.clientHeight + 150) {
-    mask.classList.remove('hide');
-    setTimeout(() => {
-      addGallery((page += 1));
-      mask.classList.add('hide');
-    }, 1200);
-  }
-});
+function throttle(callee, timeout) {
+  let timer = null;
+
+  return function perform(...args) {
+    if (timer) return;
+
+    timer = setTimeout(() => {
+      callee(...args);
+
+      clearTimeout(timer);
+      timer = null;
+    }, timeout);
+  };
+}
+
+window.addEventListener('scroll', throttle(checkPosition, 250));
 
 async function addGallery(page) {
   try {
     const results = await getList(searchInput, page);
     addMarkup(galleryEl, markupElements(results.hits));
-
-    // const { height: cardHeight } = document
-    //   .querySelector('.gallery')
-    //   .firstElementChild.getBoundingClientRect();
-
-    // window.scrollBy({
-    //   top: cardHeight * 2,
-    //   behavior: 'smooth',
-    // });
   } catch (error) {
     Notiflix.Notify.failure(error.message);
   }
