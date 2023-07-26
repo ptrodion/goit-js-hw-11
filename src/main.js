@@ -16,14 +16,6 @@ const lightbox = new SimpleLightbox('.gallery .photo-card a', {
   captionDelay: 250,
 });
 
-// const mask = document.querySelector('.mask');
-// function showLoader() {
-//   mask.classList.remove('hide');
-//   setTimeout(() => {
-//     mask.classList.add('hide');
-//   }, 60);
-// }
-
 async function handlerSubmitSearch(e) {
   e.preventDefault();
   searchInput = e.target.elements.searchQuery.value;
@@ -54,14 +46,17 @@ async function handlerSubmitSearch(e) {
 window.addEventListener('scroll', () => {
   const documentReact = document.documentElement.getBoundingClientRect();
 
+  if (page >= 50) {
+    Notiflix.Notify.failure('Нou have viewed all photos');
+    return;
+  }
+
   if (documentReact.bottom < document.documentElement.clientHeight + 150) {
     mask.classList.remove('hide');
     setTimeout(() => {
       addGallery((page += 1));
       mask.classList.add('hide');
     }, 1200);
-
-    console.log(page);
   }
 });
 
@@ -70,9 +65,9 @@ async function addGallery(page) {
     const results = await getList(searchInput, page);
     addMarkup(galleryEl, markupElements(results.hits));
 
-    const { height: cardHeight } = document
-      .querySelector('.gallery')
-      .firstElementChild.getBoundingClientRect();
+    // const { height: cardHeight } = document
+    //   .querySelector('.gallery')
+    //   .firstElementChild.getBoundingClientRect();
 
     // window.scrollBy({
     //   top: cardHeight * 2,
