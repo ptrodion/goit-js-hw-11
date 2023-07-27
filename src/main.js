@@ -21,9 +21,10 @@ async function handlerSubmitSearch(e) {
   searchInput = e.target.elements.searchQuery.value;
   if (!searchInput.trim()) {
     Notiflix.Notify.info('You need to fill in the input');
+
     return;
   } else {
-    mask.classList.remove('hide');
+    mask.style.display = 'block';
     setTimeout(async () => {
       try {
         galleryEl.innerHTML = ' ';
@@ -37,8 +38,9 @@ async function handlerSubmitSearch(e) {
         lightbox.refresh();
       } catch (error) {
         Notiflix.Notify.failure(error.message);
+        e.target.elements.searchQuery.value = '';
       }
-      mask.classList.add('hide');
+      mask.style.display = 'none';
     }, 600);
   }
 }
