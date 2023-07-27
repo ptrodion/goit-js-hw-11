@@ -5,11 +5,9 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { searchFormEl, galleryEl, mask } from './refs/refs';
 import { getList } from './api/api';
 import { markupElements } from './markup/markup';
-import { createMarkup, addMarkup } from './helpers/Markup';
+import { createMarkup } from './helpers/helpers';
 
 const lightbox = new SimpleLightbox('.gallery .photo-card a', {
-  captionsData: 'alt',
-  captionPosition: 'bottom',
   captionDelay: 250,
 });
 
@@ -29,7 +27,6 @@ async function handlerSubmitSearch(e) {
     setTimeout(async () => {
       try {
         galleryEl.innerHTML = ' ';
-        lightbox.refresh();
 
         const results = await getList(searchInput, page);
 
@@ -37,6 +34,7 @@ async function handlerSubmitSearch(e) {
           `"Hooray! We found ${results.totalHits} images."`
         );
         createMarkup(galleryEl, markupElements(results.hits));
+        lightbox.refresh();
       } catch (error) {
         Notiflix.Notify.failure(error.message);
       }
@@ -82,7 +80,8 @@ window.addEventListener('scroll', throttle(checkPosition, 250));
 async function addGallery(page) {
   try {
     const results = await getList(searchInput, page);
-    addMarkup(galleryEl, markupElements(results.hits));
+    createMarkup(galleryEl, markupElements(results.hits));
+    lightbox.refresh();
   } catch (error) {
     Notiflix.Notify.failure(error.message);
   }
